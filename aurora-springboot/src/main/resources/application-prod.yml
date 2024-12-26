@@ -5,9 +5,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql的ip:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
-    username: 账号
-    password: 密码
+    url: jdbc:mysql://localhost:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: 1021
     hikari:
       minimum-idle: 10
       idle-timeout: 180000
@@ -19,9 +19,9 @@ spring:
       connection-test-query: SELECT 1
 
   redis:
-    host: redis的ip
+    host: 127.0.0.1
     port: 6379
-    password: 密码
+    password:
     database: 0
     lettuce:
       pool:
@@ -31,10 +31,10 @@ spring:
         max-wait: 10000
 
   rabbitmq:
-    host: rabbitmq的ip
-    port: 5672
-    username: 账号
-    password: 密码
+    host: 127.0.0.1
+    port: 5672 #项目默认 5672    # 15672为管理界面接口
+    username: guest
+    password: guest
     listener:
       simple:
         retry:
@@ -44,27 +44,27 @@ spring:
 
   elasticsearch:
     rest:
-      uris: es的ip:9200
+      uris: 127.0.0.1:9200        #es的ip:9200
 
-  mail:
-    host: smtp.163.com
-    username: 邮箱
-    password: 密码
-    default-encoding: UTF-8
-    protocol: smtp
-    port: 465
-    properties:
-      mail:
-        smtp:
-          auth: true
-          socketFactory:
-            class: javax.net.ssl.SSLSocketFactory
-            port: 465
-          ssl:
-            enable: true
-          starttls:
-            enable: true
-            required: true
+#  mail:
+#    host: smtp.163.com
+#    username: frgvcd@163.com
+#    password: QNvdH5t4aebzFuSj
+#    default-encoding: UTF-8
+#    protocol: smtp
+#    port: 465
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          socketFactory:
+#            class: javax.net.ssl.SSLSocketFactory
+#            port: 465
+#          ssl:
+#            enable: true
+#          starttls:
+#            enable: true
+#            required: true
 
   servlet:
     multipart:
@@ -84,7 +84,7 @@ search:
   mode: elasticsearch
 
 upload:
-  mode: oss
+  mode: minio
   oss:
     url: http://Bucket域名/
     endpoint: OSS配置endpoint
@@ -92,14 +92,14 @@ upload:
     accessKeySecret: OSS配置accessKeySecret
     bucketName: OSS配置bucketName
   minio:
-    url: http://minio的ip:9000/
-    endpoint: http://minio的ip:9000
-    accesskey: 用户名
-    secretKey: 密码
-    bucketName: 桶的名称
+    url: http://127.0.0.1:9000/         # minio ip
+    endpoint: http://127.0.0.1:9000
+    accesskey: rNzmG3NskakV750ziKrD
+    secretKey: sWnHzjx5xtXvUc5wrtCdwzUBcyhuArZT9hBpnksl
+    bucketName: aurora
 
 website:
-  url: https://前台域名
+  url: https://fublogovo.com
 
 qq:
   app-id: QQ APPID

@@ -26,6 +26,7 @@
           </el-form>
         </div>
       </el-tab-pane>
+
       <el-tab-pane label="修改密码" name="password">
         <el-form label-width="70px" :model="passwordForm" style="width: 320px">
           <el-form-item label="旧密码">

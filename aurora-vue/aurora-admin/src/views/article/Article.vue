@@ -222,7 +222,7 @@ export default {
       this.addOrEdit = true
     },
     uploadCover(response) {
-      this.article.articleCover = response.data
+      this.article.articleCover = response.data      // 后端删掉了一层，预览添加上
     },
     beforeUpload(file) {
       return new Promise((resolve) => {

@@ -1,5 +1,27 @@
+
 spring:
   application:
     name: aurora-springboot
+
+  mail:
+    host: smtp.163.com
+    username: frgvcd@163.com
+    password: QNvdH5t4aebzFuSj
+    default-encoding: UTF-8
+    protocol: smtp
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
+
   profiles:
-    active: dev
+    active: prod   #dev
