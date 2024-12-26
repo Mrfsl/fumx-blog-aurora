@@ -13,7 +13,9 @@ public abstract class AbstractUploadStrategyImpl implements UploadStrategy {
 
     @Override
     public String uploadFile(MultipartFile file, String path) {
-
+        // 墨染
+        // 将路径与桶重复的 ‘aurora/’ 去掉
+        path.replaceAll("aurora/","");
 
         try {
             String md5 = FileUtil.getMd5(file.getInputStream());
