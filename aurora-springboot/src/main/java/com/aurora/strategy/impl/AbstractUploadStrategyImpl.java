@@ -15,16 +15,17 @@ public abstract class AbstractUploadStrategyImpl implements UploadStrategy {
     public String uploadFile(MultipartFile file, String path) {
         // 墨染
         // 将路径与桶重复的 ‘aurora/’ 去掉
-        path.replaceAll("aurora/","");
+        String upPath = path;
+        upPath = upPath.replaceAll("aurora/","");     // articles/xx.jpg
 
         try {
             String md5 = FileUtil.getMd5(file.getInputStream());
             String extName = FileUtil.getExtName(file.getOriginalFilename());
             String fileName = md5 + extName;
-            if (!exists(path + fileName)) {
-                upload(path, fileName, file.getInputStream());
+            if (!exists(upPath + fileName)) {
+                upload(upPath, fileName, file.getInputStream());
             }
-            return getFileAccessUrl(path + fileName);
+            return getFileAccessUrl(path + fileName);    //  aurora/articles/xx.jpg  用于预览链接
         } catch (Exception e) {
             e.printStackTrace();
             throw new BizException("文件上传失败");
