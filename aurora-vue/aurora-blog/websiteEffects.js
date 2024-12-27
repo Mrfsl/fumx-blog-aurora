@@ -53,7 +53,7 @@
                 clearInterval(particleInterval);
             } else {
                 // 页面恢复前台时重新生成粒子
-                particleInterval = setInterval(() => createFallingParticles(2), 1000);
+                particleInterval = setInterval(() => createFallingParticles(1), 1000);
             }
         });
 
@@ -98,7 +98,7 @@
             this.size = Math.random() * 12 + 8; // 粒子大小
             this.color = shapeColors[Math.floor(Math.random() * shapeColors.length)];
             this.shape = shapes[Math.floor(Math.random() * shapes.length)];
-            this.isSpecialShape = Math.random() < 0.1; // 10%的概率使用特殊字符
+            this.isSpecialShape = Math.random() < 0.03; // 9%的概率使用特殊字符
             this.specialShape = this.isSpecialShape ? specialShapes[Math.floor(Math.random() * specialShapes.length)] : null;
             this.opacity = Math.random() * 0.5 + 0.5; // 半透明效果
             this.image = null;
