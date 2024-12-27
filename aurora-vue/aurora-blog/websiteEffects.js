@@ -53,7 +53,7 @@
                 clearInterval(particleInterval);
             } else {
                 // 页面恢复前台时重新生成粒子
-                particleInterval = setInterval(() => createFallingParticles(1), 1000);
+                particleInterval = setInterval(() => createFallingParticles(1), 1500); // 每1500ms生成一个粒子
             }
         });
 
@@ -98,7 +98,7 @@
             this.size = Math.random() * 12 + 8; // 粒子大小
             this.color = shapeColors[Math.floor(Math.random() * shapeColors.length)];
             this.shape = shapes[Math.floor(Math.random() * shapes.length)];
-            this.isSpecialShape = Math.random() < 0.03; // 9%的概率使用特殊字符
+            this.isSpecialShape = Math.random() < 0.003; // 9%的概率使用特殊字符
             this.specialShape = this.isSpecialShape ? specialShapes[Math.floor(Math.random() * specialShapes.length)] : null;
             this.opacity = Math.random() * 0.5 + 0.5; // 半透明效果
             this.image = null;
@@ -107,7 +107,7 @@
             if (this.isSpecialShape) {
                 // 通过回调函数确保图像加载完成
                 const color = specialShapeColors[Math.floor(Math.random() * specialShapeColors.length)];
-                textToImage(this.specialShape, 80, color, (img) => {
+                textToImage(this.specialShape, 40, color, (img) => {
                     this.image = img;
                 });
             }
@@ -193,16 +193,20 @@
                 p.distance += 0.5; // 粒子扩散
                 p.opacity -= p.fadeRate; // 粒子渐隐
             });
-            this.particles = this.particles.filter((p) => p.opacity > 0); // 清除透明度为0的粒子
+            this.particles = this.particles.filter((p) => p.opacity > 0); // 清除透明度为零的粒子
         }
         draw() {
             this.particles.forEach((p) => {
-                const px = this.x + Math.cos(p.angle) * p.distance;
-                const py = this.y + Math.sin(p.angle) * p.distance;
                 ctx.globalAlpha = p.opacity;
-                ctx.fillStyle = p.color;
                 ctx.beginPath();
-                ctx.arc(px, py, p.size, 0, Math.PI * 2);
+                ctx.arc(
+                    this.x + Math.cos(p.angle) * p.distance,
+                    this.y + Math.sin(p.angle) * p.distance,
+                    p.size,
+                    0,
+                    Math.PI * 2
+                );
+                ctx.fillStyle = p.color;
                 ctx.fill();
             });
         }
@@ -213,56 +217,48 @@
         for (let i = 0; i < count; i++) {
             particles.push(new FallingParticle());
         }
+
+        // 保持粒子数量不超过20个
+        particles = particles.slice(0, 20); // 只保留前20个
     }
 
-    // 鼠标轨迹生成
+    // 创建鼠标轨迹粒子
     function createTrail(x, y) {
-        if (trails.length > 0) {
-            let lastTrail = trails[trails.length - 1];
-            let trail = new Trail(x, y);
-            trail.previousX = lastTrail.x; // 设置当前轨迹前一个点的X位置
-            trail.previousY = lastTrail.y; // 设置当前轨迹前一个点的Y位置
-            trails.push(trail);
-        } else {
-            trails.push(new Trail(x, y));
-        }
+        trails.push(new Trail(x, y));
+
+        // 保持轨迹数量不超过10个
+        trails = trails.slice(0, 10); // 只保留前10个轨迹
     }
 
-    // 鼠标点击生成爆炸效果
+    // 创建点击爆炸特效
     function createClickExplosion(x, y) {
         clicks.push(new ClickExplosion(x, y));
+
+        // 保持点击爆炸特效数量不超过5个
+        clicks = clicks.slice(0, 5); // 只保留前5个爆炸特效
     }
 
-    // 渲染循环
+    // 主循环
     function loop() {
-        ctx.clearRect(0, 0, width, height); // 清除画布
-
-        // 更新并绘制飘落粒子
-        particles.forEach((particle) => {
-            particle.update();
-            particle.draw();
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach((p) => {
+            p.update();
+            p.draw();
+        });
+        trails.forEach((t) => {
+            t.update();
+            t.draw();
+        });
+        clicks.forEach((c) => {
+            c.update();
+            c.draw();
         });
 
-        // 更新并绘制鼠标轨迹
-        trails.forEach((trail) => {
-            trail.update();
-            trail.draw();
-        });
+        // 限制粒子数量、轨迹数量和点击爆炸数量
+        particles = particles.slice(0, 5);
+        trails = trails.slice(0, 10);
+        clicks = clicks.slice(0, 5);
 
-        // 更新并绘制点击爆炸效果
-        clicks.forEach((click) => {
-            click.update();
-            click.draw();
-        });
-
-        // 清除已消失的粒子和轨迹
-        particles = particles.filter((p) => p.opacity > 0);
-        trails = trails.filter((trail) => trail.opacity > 0);
-        clicks = clicks.filter((c) => c.particles.length > 0);
-
-        requestAnimationFrame(loop); // 继续下一帧
+        requestAnimationFrame(loop);
     }
-
-    // 初始化飘落粒子
-    particleInterval = setInterval(() => createFallingParticles(2), 1000); // 每1000ms添加2个粒子
 })();
