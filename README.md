@@ -12,7 +12,7 @@
 
 - 前台链接：[www.linhaojun.top](https://www.linhaojun.top)
 - 后台链接：[admin.linhaojun.top](https://admin.linhaojun.top)
-- 演示账号：test@163.com，密码：123456
+- 演示账号：admin@163.com，密码：123456
 
 ## 效果图
 
