@@ -1,31 +1,23 @@
-# Aurora---前后端分离博客
+# Aurora---一个前后端分离的博客系统
 
-### 轻量版后端: https://github.com/zhouyqxy/aurora_Lite
+## 原项目地址
+- https://github.com/linhaojun857/Aurora
+- 感谢大佬分享
 
-## 前言
-
-- 开源不易，希望大家star支持一下
-- 由于本人还在上学，主语言并不是Java，所以项目更新频率较慢，但是本项目会长期维护，有问题可以提issue，
-  同时也欢迎大家来共建此项目，包括但不限于：bug 修复、代码优化、功能开发等等
+## 说明
+- 搭建学习，准备长期维护个人博客，如果后续想要添加新功能会在自己仓库修改添加
 
 ## 在线地址
-
-- 前台链接：[www.linhaojun.top](https://www.linhaojun.top)
-- 后台链接：[admin.linhaojun.top](https://admin.linhaojun.top)
-- 演示账号：test@163.com，密码：123456
+- 前台链接：[待补充)
+- 后台链接：[待补充)
+- 演示账号：admin@163.com，密码：123456
 
 ## 效果图
-
 ### 图片1：
-![图片1](https://s3.bmp.ovh/imgs/2023/06/25/8a6ad38dfb27bb3a.png)
-
 ### 图片2：
-![图片2](https://s3.bmp.ovh/imgs/2023/06/25/7036a13dc0a0488a.png)
 
 ## 相关技术
-
 ### 前端：
-
 - 样式来自于：[hexo的aurora主题](https://github.com/auroral-ui/hexo-theme-aurora)
 - 基础框架：vue3(前台) vue2(后台)
 - 状态管理：pinia(前台) vuex(后台)
@@ -45,32 +37,5 @@
 - 定时任务：quartz
 - 其他技术：详见后端项目的pom.xml
 
-## 后续计划
 
-- [ ] 前台代码优化
-- [ ] 后台vue3重构
-- [ ] 后端提供轻量化选择
 
-## 快速开始
-
-一键安装
-
-执行如下命令一键安装 Aurora 博客：
-
-```shell
-curl -sSL https://kangxianghui.top/api/Util/OnlineView/aurora_shell/aurora_install.sh -o aurora_install.sh && sh aurora_install.sh
-```
-
-此命令适用于：CentOS 操作系统
-
-## 部署
-
-- 详见项目部署文档
-
-## 交流群
-
-- QQ群：338371628
-
-## 鸣谢
-
-- 感谢[jetbrains](https://www.jetbrains.com/)提供的开源开发许可证
