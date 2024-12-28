@@ -15,7 +15,7 @@
     document.body.appendChild(canvas);
     canvas.setAttribute(
         "style",
-        "width: 100%; height: 100%; top: 0; left: 0; z-index: 99999; position: fixed; pointer-events: none;"
+        "width: 100%; height: 100%; top: 0; left: 0; z-index: 99999; position: fixed; pointer-events: none; overflow: hidden;"
     );
 
     if (canvas.getContext && window.addEventListener) {
@@ -94,13 +94,13 @@
             this.x = Math.random() * width;
             this.y = Math.random() * -50;
             this.vx = Math.random() * -0.3 - 0.3; // 左下飘落速度
-            this.vy = Math.random() * 1 + 1.5; // 下落速度
+            this.vy = Math.random() * 1 + 0; // 下落速度
             this.size = Math.random() * 12 + 8; // 粒子大小
             this.color = shapeColors[Math.floor(Math.random() * shapeColors.length)];
             this.shape = shapes[Math.floor(Math.random() * shapes.length)];
-            this.isSpecialShape = Math.random() < 0.003; // 9%的概率使用特殊字符
+            this.isSpecialShape = Math.random() < 0.1; // 10%的概率使用特殊字符
             this.specialShape = this.isSpecialShape ? specialShapes[Math.floor(Math.random() * specialShapes.length)] : null;
-            this.opacity = Math.random() * 0.5 + 0.5; // 半透明效果
+            this.opacity = Math.random() * 0.5 + 0.3; // 半透明效果
             this.image = null;
 
             // 如果是特殊字符（如 "Fu" 或 "ovo"），转化为图像
@@ -155,8 +155,8 @@
         draw() {
             ctx.globalAlpha = this.opacity;
             const gradient = ctx.createLinearGradient(this.previousX, this.previousY, this.x, this.y);
-            gradient.addColorStop(0, "rgba(200, 200, 200, 0.8)");
-            gradient.addColorStop(1, "rgba(255, 255, 255, 0.1)"); // 渐变颜色
+            gradient.addColorStop(0, "rgba(244,228,228,0.8)");
+            gradient.addColorStop(1, "rgba(234,191,191,0.1)"); // 渐变颜色
             ctx.strokeStyle = gradient;
             ctx.lineWidth = this.lineWidth;
             ctx.beginPath();
@@ -191,74 +191,61 @@
         update() {
             this.particles.forEach((p) => {
                 p.distance += 0.5; // 粒子扩散
-                p.opacity -= p.fadeRate; // 粒子渐隐
+                p.opacity -= p.fadeRate; // 渐隐
             });
-            this.particles = this.particles.filter((p) => p.opacity > 0); // 清除透明度为零的粒子
         }
         draw() {
+            ctx.globalAlpha = 1;
             this.particles.forEach((p) => {
-                ctx.globalAlpha = p.opacity;
-                ctx.beginPath();
-                ctx.arc(
-                    this.x + Math.cos(p.angle) * p.distance,
-                    this.y + Math.sin(p.angle) * p.distance,
-                    p.size,
-                    0,
-                    Math.PI * 2
-                );
+                const x = this.x + Math.cos(p.angle) * p.distance;
+                const y = this.y + Math.sin(p.angle) * p.distance;
                 ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(x, y, p.size, 0, Math.PI * 2);
                 ctx.fill();
             });
         }
     }
 
-    // 创建飘落粒子
+    // 创建粒子生成函数
     function createFallingParticles(count) {
         for (let i = 0; i < count; i++) {
             particles.push(new FallingParticle());
         }
-
-        // 保持粒子数量不超过20个
-        particles = particles.slice(0, 20); // 只保留前20个
     }
 
-    // 创建鼠标轨迹粒子
+    // 鼠标轨迹
     function createTrail(x, y) {
         trails.push(new Trail(x, y));
-
-        // 保持轨迹数量不超过10个
-        trails = trails.slice(0, 10); // 只保留前10个轨迹
     }
 
-    // 创建点击爆炸特效
+    // 点击特效
     function createClickExplosion(x, y) {
         clicks.push(new ClickExplosion(x, y));
-
-        // 保持点击爆炸特效数量不超过5个
-        clicks = clicks.slice(0, 5); // 只保留前5个爆炸特效
     }
 
-    // 主循环
+    // 运动和绘制
     function loop() {
-        ctx.clearRect(0, 0, width, height);
+        ctx.clearRect(0, 0, width, height); // 清除画布
+
         particles.forEach((p) => {
             p.update();
             p.draw();
         });
-        trails.forEach((t) => {
-            t.update();
-            t.draw();
-        });
-        clicks.forEach((c) => {
-            c.update();
-            c.draw();
+
+        trails.forEach((trail) => {
+            trail.update();
+            trail.draw();
         });
 
-        // 限制粒子数量、轨迹数量和点击爆炸数量
-        particles = particles.slice(0, 5);
-        trails = trails.slice(0, 10);
-        clicks = clicks.slice(0, 5);
+        clicks.forEach((click) => {
+            click.update();
+            click.draw();
+        });
 
         requestAnimationFrame(loop);
     }
+
+    // 启动粒子效果
+    particleInterval = setInterval(() => createFallingParticles(1), 5000); // 每1500ms生成一个粒子
 })();

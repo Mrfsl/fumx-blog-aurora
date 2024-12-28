@@ -210,6 +210,21 @@ body {
   background: var(--background-primary-alt);
 }
 
+/* 隐藏右侧滚动条 */
+html, body {
+  overflow-y: scroll; /* 始终启用滚动条 */
+}
+::-webkit-scrollbar {
+  width: 0px; /* 隐藏垂直滚动条 */
+  height: 0px; /* 隐藏水平滚动条 */
+}
+/* 兼容其他浏览器 */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+
 *:focus {
   outline: none;
 }
