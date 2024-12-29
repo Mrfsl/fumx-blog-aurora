@@ -5,7 +5,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    url: jdbc:mysql://172.17.0.4:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
     password: 1021
     hikari:
@@ -19,9 +19,9 @@ spring:
       connection-test-query: SELECT 1
 
   redis:
-    host: 127.0.0.1
+    host: 172.17.0.3
     port: 6379
-    password:
+    password: 1021
     database: 0
     lettuce:
       pool:
@@ -31,8 +31,8 @@ spring:
         max-wait: 10000
 
   rabbitmq:
-    host: 127.0.0.1
-    port: 5672 #项目默认 5672    # 15672为管理界面接口
+    host: 172.17.0.2
+    port: 5672          #项目默认 5672    # 15672为管理界面接口
     username: guest
     password: guest
     listener:
@@ -44,27 +44,27 @@ spring:
 
   elasticsearch:
     rest:
-      uris: 127.0.0.1:9200        #es的ip:9200
+      uris: 172.17.0.5:9200        #es的ip:9200
 
-#  mail:
-#    host: smtp.163.com
-#    username: frgvcd@163.com
-#    password: QNvdH5t4aebzFuSj
-#    default-encoding: UTF-8
-#    protocol: smtp
-#    port: 465
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          socketFactory:
-#            class: javax.net.ssl.SSLSocketFactory
-#            port: 465
-#          ssl:
-#            enable: true
-#          starttls:
-#            enable: true
-#            required: true
+  mail:
+    host: smtp.163.com
+    username: frgvcd@163.com
+    password: QNvdH5t4aebzFuSj
+    default-encoding: UTF-8
+    protocol: smtp
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+          ssl:
+            enable: true
+          starttls:
+            enable: true
+            required: true
 
   servlet:
     multipart:
@@ -92,8 +92,8 @@ upload:
     accessKeySecret: OSS配置accessKeySecret
     bucketName: OSS配置bucketName
   minio:
-    url: http://127.0.0.1:9000/         # minio ip
-    endpoint: http://127.0.0.1:9000
+    url: http://47.108.235.211/:9000/         # minio ip
+    endpoint: http://47.108.235.211:9000
     accesskey: rNzmG3NskakV750ziKrD
     secretKey: sWnHzjx5xtXvUc5wrtCdwzUBcyhuArZT9hBpnksl
     bucketName: aurora
