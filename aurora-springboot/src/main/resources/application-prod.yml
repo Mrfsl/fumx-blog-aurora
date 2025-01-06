@@ -5,7 +5,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://172.17.0.4:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    url: jdbc:mysql://172.17.0.3:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
     password: 1021
     hikari:
@@ -19,7 +19,7 @@ spring:
       connection-test-query: SELECT 1
 
   redis:
-    host: 172.17.0.3
+    host: 172.17.0.4
     port: 6379
     password: 1021
     database: 0
@@ -31,7 +31,7 @@ spring:
         max-wait: 10000
 
   rabbitmq:
-    host: 172.17.0.2
+    host: 172.17.0.7
     port: 5672          #项目默认 5672    # 15672为管理界面接口
     username: guest
     password: guest
@@ -44,7 +44,7 @@ spring:
 
   elasticsearch:
     rest:
-      uris: 172.17.0.5:9200        #es的ip:9200
+      uris: 172.17.0.5:9200        #es的ip:9200   注意这里些的是容器ip
 
   mail:
     host: smtp.163.com
@@ -81,7 +81,7 @@ jwt:
   secret: aurora
 
 search:
-  mode: elasticsearch
+  mode: mysql    # mysql  elasticsearch
 
 upload:
   mode: minio
