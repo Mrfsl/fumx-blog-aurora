@@ -4,4 +4,4 @@ spring:
     name: aurora-springboot
 
   profiles:
-    active: dev   #dev  prod
+    active: dev   # dev   prod
